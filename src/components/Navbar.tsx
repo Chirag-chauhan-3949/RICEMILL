@@ -37,6 +37,7 @@ export default function Navbar() {
             <Link to="/" className="block px-3 py-2 text-gray-700 hover:text-amber-600">Home</Link>
             <Link to="/about" className="block px-3 py-2 text-gray-700 hover:text-amber-600">About Us</Link>
             <Link to="/contact" className="block px-3 py-2 text-gray-700 hover:text-amber-600">Contact</Link>
+            <Link to="/product" className="block px-3 py-2 text-gray-700 hover:text-amber-600">Product</Link>
           </div>
         </div>
       )}
