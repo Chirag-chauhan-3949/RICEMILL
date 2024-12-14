@@ -4,15 +4,14 @@ import Stats from '../components/home/Stats';
 import Testimonials from '../components/home/Testimonials';
 import ProcessSection from '../components/home/ProcessSection/ProcessSection';
 
+
 export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section with Parallax Effect */}
       <div 
         className="relative h-screen bg-fixed bg-cover bg-center"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1568201402596-ececec1aac61?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")'
-        }}
+        style={{ backgroundImage: `url("/hero-section-rice-field.jpg")` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50" />
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
@@ -23,7 +22,7 @@ export default function Home() {
               to="/contact" 
               className="inline-flex items-center px-8 py-4 bg-amber-600 hover:bg-amber-700 transition-colors rounded-lg text-white text-lg font-semibold"
             >
-              Get Started
+              Contact Us
               <ArrowRight className="ml-2 h-6 w-6" />
             </Link>
           </div>

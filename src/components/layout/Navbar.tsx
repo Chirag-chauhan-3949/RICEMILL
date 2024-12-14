@@ -20,7 +20,7 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+    <nav className={`fixed w-full z-50 transition-all duration-300 bg-white ${
       isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,30 +28,27 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <Logo />
-              <span className={`ml-2 text-xl font-bold ${
-                isScrolled ? 'text-gray-800' : 'text-white'
+              <span className={`ml-2 text-xl font-bold text-gray-800'
               }`}>
                 GoldenGrain Mills
               </span>
             </Link>
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 font-bold">
             {[
               { path: '/', label: 'Home' },
               { path: '/about', label: 'About Us' },
-              { path: '/contact', label: 'Contact' }
+              { path: '/contact', label: 'Contact' },
+              { path: '/product', label: 'Product' },
             ].map(({ path, label }) => (
               <Link
                 key={path}
                 to={path}
                 className={`transition-colors ${
-                  isScrolled
-                    ? isActive(path)
-                      ? 'text-amber-600'
-                      : 'text-gray-700 hover:text-amber-600'
-                    : 'text-white hover:text-amber-200'
+                  isActive(path) ? 'text-amber-600' : 'text-gray-700 hover:text-amber-600'
                 }`}
+                
               >
                 {label}
               </Link>
@@ -61,7 +58,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className={isScrolled ? 'text-gray-700' : 'text-white'}
+              className={'text-gray-700' }
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -75,7 +72,8 @@ export default function Navbar() {
             {[
               { path: '/', label: 'Home' },
               { path: '/about', label: 'About Us' },
-              { path: '/contact', label: 'Contact' }
+              { path: '/contact', label: 'Contact' },
+              { path: '/product', label: 'Product' },
             ].map(({ path, label }) => (
               <Link
                 key={path}

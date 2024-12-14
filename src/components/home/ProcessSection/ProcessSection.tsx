@@ -16,7 +16,7 @@ export default function ProcessSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <ProcessImage
-            imageUrl="https://images.unsplash.com/photo-1595441340237-1c6cc550ef7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+            imageUrl="/Rice-Processing-Facility.jpeg"
             altText="Rice Processing Facility"
           />
           <ProcessList />
