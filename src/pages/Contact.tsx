@@ -1,5 +1,6 @@
 import { Send } from "lucide-react";
 import { useState } from "react";
+import emailjs from "emailjs-com";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -7,11 +8,48 @@ export default function Contact() {
     email: "",
     message: "",
   });
+  const [isSending, setIsSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [statusType, setStatusType] = useState<"success" | "error" | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    setIsSending(true);
+    setStatusMessage(null);  // Reset status message before sending
+    setStatusType(null);  // Reset status type before sending
+
+    // Access EmailJS credentials from environment variables using Vite's import.meta.env
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const userID = import.meta.env.VITE_EMAILJS_USER_ID;
+
+
+    if (!serviceID || !templateID || !userID) {
+      console.error("Missing EmailJS credentials");
+      setStatusMessage("Failed to send message: Missing credentials");
+      setStatusType("error");
+      setIsSending(false);
+      return;
+    }
+
+    // Send email using EmailJS
+    emailjs
+      .send(serviceID, templateID, formData, userID)
+      .then(
+        (response) => {
+          console.log("Success!", response.status, response.text);
+          setStatusMessage("Message sent successfully!");
+          setStatusType("success");
+        },
+        (error) => {
+          console.log("Failed...", error);
+          setStatusMessage(`Failed to send message: ${error.text || error.message}`);
+          setStatusType("error");
+        }
+      )
+      .finally(() => {
+        setIsSending(false); // Reset loading state
+      });
   };
 
   return (
@@ -97,10 +135,22 @@ export default function Contact() {
           <button
             type="submit"
             className="w-full flex items-center justify-center px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+            disabled={isSending} // Disable button while sending
           >
-            Send Message
+            {isSending ? "Sending..." : "Send Message"}
             <Send className="ml-2 h-5 w-5" />
           </button>
+
+          {/* Show success or failure message */}
+          {statusMessage && (
+            <div
+              className={`mt-4 text-center text-lg font-medium ${
+                statusType === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {statusMessage}
+            </div>
+          )}
         </form>
       </div>
     </div>
